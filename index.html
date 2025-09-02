@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RPG Probabilidade</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      background: #09141d;
+      color: #fff;
+      text-align: center;
+    }
+    section {
+      display: none;
+      height: 100vh;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    section.active {
+      display: flex;
+    }
+    .logo img {
+      max-width: 250px;
+      margin-bottom: 30px;
+    }
+    button {
+      padding: 12px 35px;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      transform: scale(1.05);
+    }
+    /* Cartões de personagem */
+    .characters {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      padding: 20px;
+      max-width: 90vw;
+    }
+    .card {
+      background: #222;
+      border-radius: 12px;
+      padding: 15px;
+      width: 220px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      flex-shrink: 0;
+    }
+    .card img {
+      width: 100px;
+      height: 100px;
+      image-rendering: pixelated;
+    }
+    .stats {
+      margin: 10px 0;
+      font-size: 14px;
+    }
+    /* Jogo */
+    #game {
+      position: relative;
+      width: 500px;
+      height: 500px;
+      background: #333;
+      border: 3px solid white;
+      overflow: hidden;
+    }
+    .player, .monster {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+    }
+    .player { background: blue; left: 50px; top: 50px; }
+    .monster { background: red; }
+    #battleScreen {
+      display: none;
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.95);
+      padding: 20px;
+      text-align: center;
+    }
+    #hp { display: flex; justify-content: space-around; margin-bottom: 20px; }
+    .bar { background: #555; width: 40%; height: 20px; border: 1px solid white; }
+    .fill { background: limegreen; height: 100%; width: 100%; }
+  </style>
+</head>
+<body>
+
+  <!-- Tela inicial -->
+  <section id="inicio" class="active">
+    <div class="logo"><img src="img/Logo.png" alt="Logo"></div>
+    <button style="background:#fff;color:#09141d;" onclick="mudarTela('menu')">Iniciar</button>
+  </section>
+
+  <!-- Menu -->
+  <section id="menu">
+    <h1>🎮 Menu Principal</h1>
+    <ul style="list-style:none; padding:0;">
+      <li><button onclick="mudarTela('personagem')">Novo Jogo</button></li>
+      <li><button onclick="alert('Carregar ainda não implementado')">Carregar</button></li>
+      <li><button onclick="alert('Opções em breve')">Opções</button></li>
+      <li><button onclick="mudarTela('inicio')">Sair</button></li>
+    </ul>
+  </section>
+
+  <!-- Seleção de personagem -->
+  <section id="personagem">
+    <h1>Selecione seu Herói</h1>
+    <div class="characters">
+      <div class="card">
+        <img src="img/orc.png" alt="Orc">
+        <h2>Orc Guerreiro</h2>
+        <div class="stats">Vida: 120<br>Ataque: Forte<br>Velocidade: Média</div>
+        <p>Um guerreiro brutal.</p>
+        <button onclick="selecionar('orc')">Escolher</button>
+      </div>
+      <div class="card">
+        <img src="img/elfo.png" alt="Elfo">
+        <h2>Elfo Arqueiro</h2>
+        <div class="stats">Vida: 90<br>Ataque: Médio<br>Velocidade: Alta</div>
+        <p>Um arqueiro ágil.</p>
+        <button onclick="selecionar('elfo')">Escolher</button>
+      </div>
+      <div class="card">
+        <img src="img/clerigo.png" alt="Clérigo">
+        <h2>Clérigo</h2>
+        <div class="stats">Vida: 100<br>Ataque: Médio<br>Magia: Cura</div>
+        <p>Um devoto humano.</p>
+        <button onclick="selecionar('clerigo')">Escolher</button>
+      </div>
+      <div class="card">
+        <img src="img/ladrao.png" alt="Ladrão">
+        <h2>Ladrão</h2>
+        <div class="stats">Vida: 80<br>Ataque: Rápido<br>Velocidade: Muito Alta</div>
+        <p>Pequenino ágil.</p>
+        <button onclick="selecionar('ladrao')">Escolher</button>
+      </div>
+      <div class="card">
+        <img src="img/mago.png" alt="Mago">
+        <h2>Mago</h2>
+        <div class="stats">Vida: 70<br>Ataque: Magia<br>Defesa: Baixa</div>
+        <p>Um estudioso dos arcanos.</p>
+        <button onclick="selecionar('mago')">Escolher</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Jogo -->
+  <section id="jogo">
+    <div id="game">
+      <div class="player" id="player"></div>
+      <div class="monster" id="monster1" style="left:350px; top:300px;"></div>
+      <div class="monster" id="monster2" style="left:200px; top:100px;"></div>
+      <div class="monster" id="monster3" style="left:100px; top:400px;"></div>
+
+      <div id="battleScreen">
+        <div id="hp">
+          <div class="bar"><div id="playerHP" class="fill"></div></div>
+          <div class="bar"><div id="monsterHP" class="fill"></div></div>
+        </div>
+        <p id="question"></p>
+        <input type="text" id="answer" placeholder="Digite a resposta"><br>
+        <button onclick="checkAnswer()">Responder</button>
+        <p id="feedback"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Música de fundo -->
+  <audio id="bgMusic" loop>
+    <source src="music/Menu Theme.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // ===== Controle de telas =====
+    function mudarTela(id) {
+      document.querySelectorAll("section").forEach(sec => sec.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+    }
+
+    // ===== Música =====
+    const bgMusic = document.getElementById("bgMusic");
+    document.body.addEventListener("click", () => {
+      if (bgMusic.paused) bgMusic.play();
+    }, { once: true });
+
+    // ===== Seleção de personagem =====
+    function selecionar(p) {
+      localStorage.setItem("personagem", p);
+      mudarTela("jogo");
+    }
+
+    // ===== Jogo =====
+    const player = document.getElementById("player");
+    const battleScreen = document.getElementById("battleScreen");
+    const questionEl = document.getElementById("question");
+    const feedback = document.getElementById("feedback");
+    const playerHPBar = document.getElementById("playerHP");
+    const monsterHPBar = document.getElementById("monsterHP");
+
+    let px = 50, py = 50, speed = 10, inBattle = false, currentMonster = null;
+    let playerHP = 100, monsterHP = 100;
+
+    const questions = [
+      { q: "Um dado de 6 lados foi lançado. Qual a probabilidade de sair número par?", a: ["1/2","0.5","50%"] },
+      { q: "Uma moeda justa é lançada. Qual a chance de dar cara?", a: ["1/2","0.5","50%"] },
+      { q: "Num baralho com 52 cartas, qual a chance de tirar um Ás?", a: ["4/52","1/13","~0.077","7.7%"] },
+      { q: "De 30 alunos, 10 gostam de esportes. Qual a probabilidade de escolher 1 que gosta de esportes?", a: ["10/30","1/3","0.33","33%"] }
+    ];
+    let currentQuestion;
+
+    document.addEventListener("keydown", (e) => {
+      if (inBattle) return;
+      if (e.key === "ArrowUp") py -= speed;
+      if (e.key === "ArrowDown") py += speed;
+      if (e.key === "ArrowLeft") px -= speed;
+      if (e.key === "ArrowRight") px += speed;
+
+      player.style.left = px + "px";
+      player.style.top = py + "px";
+      checkCollision();
+    });
+
+    function checkCollision() {
+      const pRect = player.getBoundingClientRect();
+      document.querySelectorAll(".monster").forEach(monster => {
+        if (monster.style.display === "none") return;
+        const mRect = monster.getBoundingClientRect();
+        if (!(pRect.right < mRect.left || 
+              pRect.left > mRect.right || 
+              pRect.bottom < mRect.top || 
+              pRect.top > mRect.bottom)) {
+          startBattle(monster);
+        }
+      });
+    }
+
+    function startBattle(monster) {
+      inBattle = true;
+      currentMonster = monster;
+      monsterHP = 100;
+      battleScreen.style.display = "block";
+      nextQuestion();
+    }
+
+    function nextQuestion() {
+      currentQuestion = questions[Math.floor(Math.random() * questions.length)];
+      questionEl.innerText = currentQuestion.q;
+      feedback.innerText = "";
+      document.getElementById("answer").value = "";
+    }
+
+    function checkAnswer() {
+      const ans = document.getElementById("answer").value.trim();
+      if (currentQuestion.a.includes(ans)) {
+        feedback.innerText = "✅ Acertou! Você atacou o monstro!";
+        monsterHP -= 30;
+        if (monsterHP < 0) monsterHP = 0;
+      } else {
+        feedback.innerText = "❌ Errou! O monstro atacou você!";
+        playerHP -= 20;
+        if (playerHP < 0) playerHP = 0;
+      }
+      updateHP();
+      if (playerHP <= 0) {
+        feedback.innerText = "💀 Você perdeu!";
+      } else if (monsterHP <= 0) {
+        feedback.innerText = "🏆 Vitória! O monstro foi derrotado!";
+        currentMonster.style.display = "none";
+        setTimeout(endBattle, 2000);
+      } else {
+        setTimeout(nextQuestion, 1500);
+      }
+    }
+
+    function updateHP() {
+      playerHPBar.style.width = playerHP + "%";
+      monsterHPBar.style.width = monsterHP + "%";
+    }
+
+    function endBattle() {
+      battleScreen.style.display = "none";
+      inBattle = false;
+    }
+
+    updateHP();
+  </script>
+</body>
+</html>

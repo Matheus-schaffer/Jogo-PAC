@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  height: 100vh;
+  background: #09141d;
+  color: #fff;
+  text-align: center;
+}
+
+section {
+  display: none;
+  height: 100vh;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+section.active {
+  display: flex;
+}
+
+.logo img {
+  max-width: 250px;
+  margin-bottom: 30px;
+}
+
+button {
+  padding: 12px 35px;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+/* Cartões de personagem */
+.characters {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 20px;
+  max-width: 90vw;
+}
+
+.card {
+  background: #222;
+  border-radius: 12px;
+  padding: 15px;
+  width: 220px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  flex-shrink: 0;
+}
+
+.card img {
+  width: 100px;
+  height: 100px;
+  image-rendering: pixelated;
+}
+
+.stats {
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+/* Jogo */
+#game {
+  position: relative;
+  width: 90vmin;
+  height: 90vmin;
+  max-width: 600px;
+  max-height: 600px;
+  margin: auto;
+  background: #333;
+  border: 3px solid white;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.player,
+.monster {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+}
+
+.player {
+  background: blue;
+  left: 50px;
+  top: 50px;
+}
+
+.monster {
+  background: red;
+}
+
+#battleScreen {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  padding: 20px;
+  text-align: center;
+}
+
+#hp {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.bar {
+  background: #555;
+  width: 40%;
+  height: 20px;
+  border: 1px solid white;
+}
+
+.fill {
+  background: limegreen;
+  height: 100%;
+  width: 100%;
+}
+
+/* Fundo do diálogo */
+#dialogo {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#dialogoFundo {
+  position: absolute;
+  bottom: 250px;   /* sobe a imagem acima da caixa */
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  height: 400px;   /* ajusta o tamanho da imagem */
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  z-index: 0;
+}
+
+/* Caixa de diálogo */
+.dialog-box {
+  font-family: 'MedievalSharp', cursive;
+  font-size: 20px;
+  line-height: 1.6;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 800px;
+  padding: 85px 135px 75px 110px;
+  background: url("imagens/box-texto.png") no-repeat center/100% 100%;
+  color: #fff;
+  min-height: 250px;
+  box-sizing: border-box;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  text-align: left;
+  text-shadow: 0 0 4px #fff, 0 0 8px #ccc;
+  z-index: 1;
+}

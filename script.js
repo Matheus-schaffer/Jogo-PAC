@@ -35,7 +35,7 @@ function fixPath(path) {
 // ===== Falas com imagens, músicas e sons =====
 const falas = [
   { 
-    textos: ["O barco está prestes a atracar no porto de Neverwinter, a chamada Joia do Norte", "A cidade já passou por guerras e tragédias, mas agora vive dias de reconstrução sob o comando do Lorde Protetor.",
+    textos: ["O barco está indo ou vindo prestes a atracar no porto de Neverwinter, a chamada Joia do Norte", "A cidade já passou por guerras e tragédias, mas agora vive dias de reconstrução sob o comando do Lorde Protetor.",
       "O barco atraca.. e", "Você desce entre marinheiros, comerciantes e viajantes que correm pelas docas.", "No bolso, sente o peso da carta recebida ainda em sua terra natal.",
     ],
     imagens: ["imagens/Porto-neverwinter.png", "imagens/Porto-neverwinter.png"],

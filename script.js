@@ -34,6 +34,32 @@ function fixPath(path) {
 
 // ===== Falas com imagens, músicas e sons =====
 const falas = [
+  
+  { 
+    textos: ["O verão envolve Neverwinter em um calor confortáve", "Enquanto as brisas carregadas de aromas do mar sopram pelas ruas da cidade.",
+      "Conhecida como a  Joia do Norte, Neverwinter já sofreu tragédias que quase a destruíram — pragas, invasões", "Mas hoje, sob o comando firme do Lorde Protetor Dagult Neverember", "a cidade ressurge lentamente, seus bairros sendo reconstruídos sobre as cicatrizes do passado.",
+    ],
+    imagens: ["imagens/Porto-neverwinter.png", "imagens/Porto-neverwinter.png"],
+    musica: "Medieval rua porto.mp3"
+  },
+
+  { 
+    textos: ["O barco está indo ou vindo prestes a atracar no porto de Neverwinter, a chamada Joia do Norte", "A cidade já passou por guerras e tragédias, mas agora vive dias de reconstrução sob o comando do Lorde Protetor.",
+      "O barco atraca.. e", "Você desce entre marinheiros, comerciantes e viajantes que correm pelas docas.", "No bolso, sente o peso da carta recebida ainda em sua terra natal.",
+    ],
+    imagens: ["imagens/Porto-neverwinter.png", "imagens/Porto-neverwinter.png"],
+    musica: "Medieval rua porto.mp3"
+  },
+
+  { 
+    textos: ["O barco está indo ou vindo prestes a atracar no porto de Neverwinter, a chamada Joia do Norte", "A cidade já passou por guerras e tragédias, mas agora vive dias de reconstrução sob o comando do Lorde Protetor.",
+      "O barco atraca.. e", "Você desce entre marinheiros, comerciantes e viajantes que correm pelas docas.", "No bolso, sente o peso da carta recebida ainda em sua terra natal.",
+    ],
+    imagens: ["imagens/Porto-neverwinter.png", "imagens/Porto-neverwinter.png"],
+    musica: "Medieval rua porto.mp3"
+  },
+  
+  
   { 
     textos: ["O barco está indo ou vindo prestes a atracar no porto de Neverwinter, a chamada Joia do Norte", "A cidade já passou por guerras e tragédias, mas agora vive dias de reconstrução sob o comando do Lorde Protetor.",
       "O barco atraca.. e", "Você desce entre marinheiros, comerciantes e viajantes que correm pelas docas.", "No bolso, sente o peso da carta recebida ainda em sua terra natal.",

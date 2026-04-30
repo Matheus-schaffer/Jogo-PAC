@@ -1,110 +1,226 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RPG Probabilidade</title>
+  <title>RPG de Aventura Textual</title>
   <link rel="stylesheet" href="Style.css">
 </head>
+
 <body>
 
-  <!-- Tela inicial -->
   <section id="inicio" class="active">
     <div class="logo"><img src="imagens/Logo.png" alt="Logo"></div>
     <button style="background:#fff;color:#09141d;" onclick="mudarTela('menu')">Iniciar</button>
   </section>
 
-  <!-- Menu -->
   <section id="menu">
-    <h1>🎮 Menu Principal</h1>
-    <ul style="list-style:none; padding:0;">
-      <li><button onclick="mudarTela('personagem')">Novo Jogo</button></li>
-      <li><button onclick="alert('Carregar ainda não implementado')">Carregar</button></li>
-      <li><button onclick="alert('Opções em breve')">Opções</button></li>
-      <li><button onclick="mudarTela('inicio')">Sair</button></li>
-    </ul>
+    <div class="menu-overlay">
+      <div class="menu-header-container">
+        <div class="narrador-menu-container">
+          <div id="narradorMenuDisplay" class="narrador-sprite"></div>
+          <div id="balaoFalaMenu" class="speech-bubble">
+            <p id="textoBalaoMenu"></p>
+          </div>
+        </div>
+        <div class="logo-pixel"><img src="imagens/Logo.png" alt="Logo"></div>
+      </div>
+
+      <h1>Menu Principal</h1>
+      <ul class="pixel-menu-list">
+        <li><button class="pixel-btn" onclick="mudarTela('personagem')">Novo Jogo</button></li>
+        <li><button class="pixel-btn" onclick="alert('Carregar ainda não implementado')">Carregar</button></li>
+        <li><button class="pixel-btn" onclick="alert('Opções em breve')">Opções</button></li>
+        <li><button class="pixel-btn" onclick="mudarTela('inicio')">Sair</button></li>
+      </ul>
+    </div>
   </section>
 
-  <!-- Seleção de personagem -->
   <section id="personagem">
-    <h1>Selecione seu Herói</h1>
+    <div class="selecao-header">
+      <h1>Selecione seu Herói</h1>
+      <div class="narrador-selecao-container">
+        <div id="narradorSelecaoDisplay" class="narrador-sprite"></div>
+        <div id="balaoFalaSelecao" class="speech-bubble">
+          <p id="textoBalaoSelecao"></p>
+        </div>
+      </div>
+    </div>
+
     <div class="characters">
-      <div class="card">
-        <img src="imagens/Orc.png" alt="Orc">
+      <div class="card" onclick="falarDescricaoPersonagem('orc')" data-personagem="orc">
+        <img src="imagens/orc.png" alt="Orc">
         <h2>Orc Guerreiro</h2>
-        <div class="stats">Vida: 120<br>Ataque: Forte<br>Velocidade: Média</div>
-        <p>Um guerreiro brutal.</p>
-        <button onclick="selecionar('orc')">Escolher</button>
+        <button onclick="selecionar('orc'); event.stopPropagation();">Escolher</button>
       </div>
-      <div class="card">
-        <img src="imagens/Elfo.png" alt="Elfo">
+      <div class="card" onclick="falarDescricaoPersonagem('elfo')" data-personagem="elfo">
+        <img src="imagens/elfo.png" alt="Elfo">
         <h2>Elfo Arqueiro</h2>
-        <div class="stats">Vida: 90<br>Ataque: Médio<br>Velocidade: Alta</div>
-        <p>Um arqueiro ágil.</p>
-        <button onclick="selecionar('elfo')">Escolher</button>
+        <button onclick="selecionar('elfo'); event.stopPropagation();">Escolher</button>
       </div>
-      <div class="card">
-        <img src="imagens/Clerigo.png" alt="Clérigo">
+      <div class="card" onclick="falarDescricaoPersonagem('clerigo')" data-personagem="clerigo">
+        <img src="imagens/clerigo.png" alt="Clérigo">
         <h2>Clérigo</h2>
-        <div class="stats">Vida: 100<br>Ataque: Médio<br>Magia: Cura</div>
-        <p>Um devoto humano.</p>
-        <button onclick="selecionar('clerigo')">Escolher</button>
+        <button onclick="selecionar('clerigo'); event.stopPropagation();">Escolher</button>
       </div>
-      <div class="card">
-        <img src="imagens/Ladrao.png" alt="Ladrão">
+      <div class="card" onclick="falarDescricaoPersonagem('ladrao')" data-personagem="ladrao">
+        <img src="imagens/ladrao.png" alt="Ladrão">
         <h2>Ladrão</h2>
-        <div class="stats">Vida: 80<br>Ataque: Rápido<br>Velocidade: Muito Alta</div>
-        <p>Pequenino ágil.</p>
-        <button onclick="selecionar('ladrao')">Escolher</button>
+        <button onclick="selecionar('ladrao'); event.stopPropagation();">Escolher</button>
       </div>
-      <div class="card">
-        <img src="imagens/Mago.png" alt="Mago">
+      <div class="card" onclick="falarDescricaoPersonagem('mago')" data-personagem="mago">
+        <img src="imagens/mago.png" alt="Mago">
         <h2>Mago</h2>
-        <div class="stats">Vida: 70<br>Ataque: Magia<br>Defesa: Baixa</div>
-        <p>Um estudioso dos arcanos.</p>
-        <button onclick="selecionar('mago')">Escolher</button>
+        <button onclick="selecionar('mago'); event.stopPropagation();">Escolher</button>
+      </div>
+      <div class="card" onclick="falarDescricaoPersonagem('Bardo')" data-personagem="Bardo">
+        <img src="imagens/Bardo.png" alt="Bardo">
+        <h2>Bardo</h2>
+        <button onclick="selecionar('Bardo'); event.stopPropagation();">Escolher</button>
       </div>
     </div>
   </section>
 
-  <!-- Tela de diálogo -->
   <section id="dialogo">
-    <!-- Fundo com fade -->
+    <div id="narradorContainer">
+      <div id="narradorDisplay"></div>
+    </div>
+
     <img id="dialogoFundo" src="" alt="Fundo do diálogo">
-    <!-- Caixa de texto -->
-    <div class="dialog-box" id="dialogBox">
-      Clique para começar...
+
+    <div id="painelEsquerdo">
+      <h3 id="nomePersonagem">Herói</h3>
+      <div id="personagemDisplay"></div>
+      <div id="statsHud">
+        <div class="stat-item">
+          <label>Vida:</label>
+          <div class="bar-container">
+            <div id="vidaBar" class="health-bar" style="width: 100%;"></div>
+          </div>
+        </div>
+        <div class="stat-item">
+          <label>Mana:</label>
+          <div class="bar-container">
+            <div id="manaBar" class="mana-bar" style="width: 100%;"></div>
+          </div>
+        </div>
+        <div class="stat-item">
+          <label>Moedas:</label>
+          <span id="moedas">100</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="painelDireito">
+      <button onclick="mudarTela('inventario')">Inventário</button>
+      <button onclick="alert('Objetivos...')">Objetivo</button>
+      <button onclick="alert('Jogo Salvo!')">Salvar</button>
+      <button onclick="mudarTela('menu')">Menu</button>
+    </div>
+
+    <div class="dialog-box" id="dialogBox"></div>
+    <div id="opcoesCena" class="opcoes-container"></div>
+  </section>
+
+  <section id="combate">
+    <div class="battle-scene">
+      <div class="entidade-container inimigo-pos">
+        <div class="status-box inimigo-status">
+          <div class="status-topo">
+            <span class="nome-entidade">Ladrão</span>
+            <span class="level-entidade">Lv. 5</span>
+          </div>
+          <div class="hp-bar-container">
+            <span class="hp-label">HP</span>
+            <div class="hp-bar-bg">
+              <div id="hpInimigoBar" class="hp-fill" style="width: 100%;"></div>
+            </div>
+          </div>
+        </div>
+        <div id="inimigoSprite" class="sprite-battle"></div>
+      </div>
+
+      <section id="combate">
+    <div class="narrador-combate-container" style="position: absolute; top: 10px; left: 10px; z-index: 10; display: flex; align-items: center;">
+        <div id="narradorCombateDisplay" class="narrador-sprite" style="width: 80px; height: 80px;"></div>
+        <div id="balaoFalaCombate" class="speech-bubble" style="opacity: 0; position: relative; top: 0; left: 10px;">
+            <p id="textoBalaoCombate"></p>
+        </div>
+    </div>
+    
+    <div class="battle-scene">
+
+      <div class="entidade-container heroi-pos">
+        <div id="heroiSpriteCombate" class="sprite-battle back-view"></div>
+        <div class="status-box heroi-status">
+          <div class="status-topo">
+            <span id="combateNomeHeroi" class="nome-entidade">Herói</span>
+            <span class="level-entidade">Lv. 10</span>
+          </div>
+          <div class="hp-bar-container">
+            <span class="hp-label">HP</span>
+            <div class="hp-bar-bg">
+              <div id="hpHeroiBar" class="hp-fill" style="width: 100%;"></div>
+            </div>
+          </div>
+          <div class="hp-texto-numerico"><span id="hpAtualNum">100</span> / <span id="hpMaxNum">100</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="painelMatematico" class="math-overlay" style="display:none;">
+      <div class="math-box">
+        <h2 id="perguntaTexto" style="color:white">Quanto é 1 + 1?</h2>
+        <input type="number" id="respostaInput" placeholder="?">
+        <button class="pixel-btn" onclick="verificarResposta()">CONFIRMAR</button>
+      </div>
+    </div>
+
+    <div class="battle-menu">
+      <div class="battle-dialog-box">
+        <p id="battleMessage">O que o herói vai fazer?</p>
+      </div>
+      <div id="menuCombatePrincipal" class="battle-options">
+        <button class="btn-pkmn green" onclick="abrirSubMenu('ataque')">LUTAR</button>
+        <button class="btn-pkmn blue" onclick="abrirSubMenu('especial')">ESPECIAL</button>
+        <button class="btn-pkmn yellow" onclick="mudarTela('inventario')">MOCHILA</button>
+        <button class="btn-pkmn red" onclick="fugir()">FUGIR</button>
+      </div>
     </div>
   </section>
 
+  <section id="inventario">
+    <div class="janela-rpg">
+      <h1>🎒 Inventário & Personagem</h1>
+      <div class="inventario-container">
+        <div class="mochila-secao">
+          <h3>Mochila</h3>
+          <div class="inventario-grid" id="inventarioGrid"></div>
+        </div>
+        <div class="equipamento-secao">
+          <h3>Equipamento</h3>
+          <div class="boneco-equip">
+            <div class="slot-equip" id="slot-cabeca"></div>
+            <div class="slot-equip" id="slot-peito"></div>
+            <div class="slot-equip" id="slot-arma"></div>
+            <div class="slot-equip" id="slot-escudo"></div>
+            <div class="slot-equip" id="slot-botas"></div>
+          </div>
+        </div>
+      </div>
+      <button onclick="mudarTela('dialogo')" class="btn-rpg-red">FECHAR INVENTÁRIO</button>
+    </div>
+  </section>
+
+  <audio id="bgMusic" loop><source src="music/Menu Theme.mp3" type="audio/mpeg"></audio>
   <audio id="sceneMusic" loop></audio>
 
-  <!-- Jogo -->
-  <section id="jogo">
-    <div id="game">
-      <div class="player" id="player"></div>
-      <div class="monster" id="monster1" style="left:350px; top:300px;"></div>
-      <div class="monster" id="monster2" style="left:200px; top:100px;"></div>
-      <div class="monster" id="monster3" style="left:100px; top:400px;"></div>
-
-      <div id="battleScreen">
-        <div id="hp">
-          <div class="bar"><div id="playerHP" class="fill"></div></div>
-          <div class="bar"><div id="monsterHP" class="fill"></div></div>
-        </div>
-        <p id="question"></p>
-        <input type="text" id="answer" placeholder="Digite a resposta"><br>
-        <button onclick="checkAnswer()">Responder</button>
-        <p id="feedback"></p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Música de fundo -->
-  <audio id="bgMusic" loop>
-    <source src="music/Menu Theme.mp3" type="audio/mpeg">
-  </audio>
-
-  <script src="script.js"></script>
+  <script src="js/dados/personagens.js"></script>
+  <script src="js/dados/cenas.js"></script>
+  <script src="js/sistemas/narrador.js"></script>
+  <script src="js/sistemas/inventario.js"></script>
+  <script src="js/sistemas/combate.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
